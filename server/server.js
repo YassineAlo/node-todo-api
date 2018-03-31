@@ -35,7 +35,6 @@ app.get('/todos/:id', (req, res) => {
     var id = req.params.id;
     // isValid
     if (!ObjectID.isValid(id)) {
-        console.log('Invalid ObjectID');
         return res.status(404).send();
     }
     
@@ -44,19 +43,12 @@ app.get('/todos/:id', (req, res) => {
             res.status(200).send({todo});
         } else {
             res.status(404).send();
-            console.log('Unable to find the oject with id: ', id);
+            // console.log('Unable to find the oject with id: ', id);
         }
     }).catch((e) => {
         res.status('404').send();
-        console.log('An error as occurred while fetching the data')
+        // console.log('An error as occurred while fetching the data')
     });
-    // findById
-        //success
-            // if todo - send it back
-            // if no todo - send back 404 with empty body
-        //error
-            //404 - send back nothing
-    
 });
 
 
