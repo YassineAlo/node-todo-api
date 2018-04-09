@@ -52,6 +52,18 @@ UserSchema.methods.generateAuthToken = function () {
     });
 };
 
+UserSchema.methods.removeToken = function (token) {
+    var user = this;
+
+    return user.update({
+        $pull : {
+            tokens: {token}
+        }
+    });
+};
+
+
+
 UserSchema.statics.findByToken = function (token) {
     var User = this;
     var decoded;
@@ -87,18 +99,6 @@ UserSchema.statics.findByCredentials = function (email, password) {
             })
         }) 
     });
-    // User.findOne({email: body.email}).then((doc) => {
-    //     var testPass = bcrypt.compare(body.password, res.body.password, (err, res) => {
-    //         console.log(res);
-    //     });
-
-    //     if (testPass) {
-    //         res.status(200).send(doc);
-    //     } else {
-    //         res.status(401).send();
-    //         console.log('Acces denied');
-    //     }
-    // });
 };
 
 UserSchema.pre('save', function (next) {
